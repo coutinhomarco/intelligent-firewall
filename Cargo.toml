@@ -4,3 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+pcap = "0.9"
+pnet = "0.31.0"
+nix = "0.26"
