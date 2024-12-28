@@ -1,5 +1,5 @@
 [package]
-name = "iptables"
+name = "intelligent_firewall"
 version = "0.1.0"
 edition = "2021"
 
