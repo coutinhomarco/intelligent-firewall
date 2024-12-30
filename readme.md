@@ -1,9 +1,9 @@
-# Exploring Adaptive Network Security: Building an Intelligent Firewall with Rust
+# Port Scan Detection Firewall with Rust
 
 ## Introduction
 In an era of increasing cyber threats, protecting our digital assets has become more crucial than ever. As a VPS (Virtual Private Server) owner, I found myself searching for effective ways to secure my server against potential attacks. Traditional firewalls, while useful, often fall short in detecting and preventing more sophisticated probing attempts.
 
-This quest for better security led me to develop an intelligent firewall system using Rust. I wanted to create a solution that not only blocks malicious traffic but also actively learns and adapts to new threats. This project emerged from a personal need and has evolved into a tool that I believe can benefit many in the tech community.
+This quest for better security led me to develop a firewall system using Rust. I wanted to create a solution that blocks malicious traffic based on TCP SYN packet analysis. This project emerged from a personal need and has evolved into a tool that I believe can benefit many in the tech community.
 
 ## The VPS Security Challenge
 Running a VPS comes with its own set of security challenges:
@@ -12,14 +12,14 @@ Running a VPS comes with its own set of security challenges:
 2. Dynamic Threats: Attack patterns evolve rapidly, making static security rules less effective over time.
 3. Resource Constraints: Many VPS instances have limited resources, requiring efficient security solutions.
 4. Remote Management: Being physically separate from the server necessitates robust, autonomous security measures.
-## The Solution: An Intelligent Rust-based Firewall
-To address these challenges, I developed a firewall system that goes beyond traditional packet filtering. This intelligent firewall:
+## The Solution: A Rust-based Port Scan Detector
+This firewall system:
 
-- Actively monitors network traffic in real-time
-- Uses pattern recognition to identify potential port scans and probing attempts
-- Automatically blocks IPs that exhibit suspicious behavior
-- Implements a smart, time-based unblocking mechanism to prevent permanent lockouts
-- Utilizes Rust's efficiency to minimize resource usage
+- Monitors network traffic for TCP SYN packets
+- Detects potential port scanning attempts
+- Automatically blocks IPs that send too many SYN packets
+- Implements a time-based unblocking mechanism
+- Uses iptables for IP blocking
 
 ## Why Rust?
 Rust is an excellent choice for systems programming due to its:
@@ -30,13 +30,13 @@ Rust is an excellent choice for systems programming due to its:
 4. Modern syntax: Enhances readability and maintainability
 
 ## System Overview
-Our intelligent firewall performs the following key functions:
+The firewall performs these key functions:
 
 1. Captures network packets in real-time
-2. Analyzes TCP flags to detect potential port scans
-3. Tracks scan attempts from each IP address
-4. Automatically blocks IPs exceeding a defined threshold
-5. Implements a time-based unblocking mechanism
+2. Analyzes TCP SYN flags to detect potential port scans
+3. Tracks SYN packets from each IP address
+4. Automatically blocks IPs exceeding a defined threshold (3 packets)
+5. Unblocks IPs after a set duration (10 minutes)
 
 ## Prerequisites
 - A Linux system with root access
@@ -136,7 +136,6 @@ fn main() {
 - **Concurrency in Rust**: We use Arc and Mutex for safe concurrent access to shared data
 - **System Integration**: The project demonstrates how to interface with system tools like iptables from Rust
 - **Real-time Processing**: The firewall processes packets in real-time, showcasing efficient data handling
-- **Adaptive Security**: By tracking scan attempts over time, the system adapts to varying levels of threat
 
 ## Testing and Validation
 
@@ -232,7 +231,7 @@ While building security tools is educational, it's crucial to use them ethically
 - Use this knowledge to improve security, not to exploit vulnerabilities
 
 ## Conclusion
-This project demonstrates the power of Rust in building sophisticated network security tools. By combining low-level network programming with high-level abstractions, we've created an intelligent firewall capable of adapting to potential threats in real-time.
+This project demonstrates the power of Rust in building network security tools. By combining low-level network programming with high-level abstractions, we've created a firewall capable of detecting and blocking potential port scan attempts in real-time.
 
 The skills developed in this project are valuable in various fields:
 - Network Security
@@ -240,6 +239,6 @@ The skills developed in this project are valuable in various fields:
 - Real-time Data Processing
 - DevOps and Infrastructure Management
 
-As cyber threats evolve, so must our defenses. Projects like this intelligent firewall represent a step towards more adaptive and intelligent security systems.
+As cyber threats evolve, tools like this port scan detector represent a step towards better security systems.
 
 #Rust #NetworkSecurity #CyberSecurity #Programming #OpenSource
